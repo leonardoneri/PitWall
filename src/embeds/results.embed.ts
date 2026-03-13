@@ -1,7 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
 import type { SessionResult, DriverStanding, ConstructorStanding } from '../types/f1.types';
 import {
-  SESSION_EMOJI,
+  SESSION_NAME_PT,
   SESSION_COLOR,
   getMedalEmoji,
   getTeamEmoji,
@@ -9,7 +9,7 @@ import {
 
 export function buildResultsEmbed(result: SessionResult): EmbedBuilder {
   const { session, results } = result;
-  const emoji = SESSION_EMOJI[session.sessionName] ?? '🏎️';
+  const emoji = SESSION_NAME_PT[session.sessionName] ?? '🏎️';
   const color = SESSION_COLOR[session.sessionName] ?? SESSION_COLOR['Race'];
 
   const top10 = results.slice(0, 10);
