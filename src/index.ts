@@ -1,5 +1,5 @@
 import 'dotenv/config';
-
+import { createServer } from 'http';
 import {
   Client,
   GatewayIntentBits,
@@ -42,7 +42,6 @@ client.once(Events.ClientReady, (readyClient) => {
   console.log(`\n🏎️  Pit Wall online como ${readyClient.user.tag}`);
   console.log(`📡 Conectado em ${readyClient.guilds.cache.size} servidor(es)\n`);
 
-  // Inicia os cron jobs
   startScheduleJob(client);
   startReminderJob(client);
   startResultsJob(client);
@@ -76,6 +75,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
 // ─── Start ────────────────────────────────────────────────────────────────────
 
 client.login(config.DISCORD_TOKEN);
+
+// Health check para Fly.io
+createServer((_, res) => res.writeHead(200).end('ok')).listen(3000, '0.0.0.0');
 
 process.on('unhandledRejection', (err) => {
   console.error('❌ Unhandled rejection:', err);
